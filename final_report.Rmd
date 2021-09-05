@@ -326,13 +326,13 @@ The UN has cartgeorised the HDI value of countries into 4 broad classifications 
 - Medium Human Development = HDI Value > 0.631
 - Low Development = HDI Value > 0.513
 
-Through the use of an interactive scatter plot we were able to visualise the WPR (%) of males and females in relation the HDI value of the country, which brought to forefront clear trends. 
+Through the use of a violin plot we were able to visualise the WPR (%) of males and females in relation the HDI value of the country, which brought to forefront clear trends. 
 
-There are clear seperations between the WPR of the genders and the HDI class of the country namely one being, female participation rate on average remains lower than male participation rates, despite the HDI category. This may be caused by remenants of societal values that did not encourage or rather presented barriers of entry for females into the workforce. Futhermore, it is often expected for females to also be primary caregivers which may reduce the tendancy for WFP across the board.
+There are clear seperations between the WPR of the genders and the HDI class of the country namely one being, female participation rate on average remains lower than male participation rates, despite the HDI category. This may be caused by remenants of societal values that did not encourage or rather presented barriers of entry for females into the workforce. Futhermore, it is often expected for females to also be primary caregivers which may reduce the tendancy for WFP across the board (The gender gap in employment: What's holding women back?, 2021)
 
-Very High HDI countries tend to have a WPR with a smaller distribution than that of Low HDI countries in both genders, and is clearly depicted as the size of the violins elongate as HDI value decreases. Higher HDI countries tend to be more bulbous indicating a certain level of
+Very High HDI countries tend to have a WPR with a smaller distribution than that of Low HDI countries in both genders, and is clearly depicted as the size of the violins elongate as HDI value decreases. Higher HDI countries tend to be more bulbous indicating a certain level of uniformity within the living standards compared to the larger disparity in lower HDI countries.
 
-In summary it is clearly evident that WPR have unique characteristics for each HDI category that are evident across genders. Hence, there is no real difference.
+In summary it is clearly evident that WPR have unique characteristics for each HDI category that are evident across genders. Futhermore the participation rate of genders do not tend to be a good indicator of the countries HDI value or category.
 
 ```{r}
 LF_data <- read_csv("data/Labour Force Data.csv")
@@ -357,11 +357,9 @@ fv <- LF_data %>%
 fv
 ```
 
-## Research Question 5
-
-> **I am a question**
-
 # References
 
 - Al-Hilani, H., 2012. HDI as a measure of human development: A better index than the income approach. Journal of Business and Management, vol. 2, no. 5, pp.24-28.
+
+- Ilo.org. 2021. The gender gap in employment: What's holding women back?. [online] Available at: <https://www.ilo.org/infostories/en-GB/Stories/Employment/barriers-women#pressure> [Accessed 5 September 2021].
 
