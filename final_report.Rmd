@@ -33,13 +33,13 @@ This report aims to identify key data trends as related to the Human Development
 
 ## Initial Data Analysis (IDA)
 
-Summary (suggesstion):
+The Data used for this reports analysis was sourced from ‘http://hdr.undp.org/en/data’. The whole dataset was downloaded and included multiple tabs within an excel spreadsheet, each entailing specific global indicators that work towards the HDI rank. For this report we started with a broad analysis of different variables and their correlation with HDI before narrowing our focus on gender specific variables (e.g., Labour Force Participation, Employment and Education). 
 
-- The data came from ...
-- The data is/is not valid because ...
-- Possible issues include ...
-- Each row represents ...
-- Each column represents ...
+The data is valid as it is sourced from a reputable international organisation (United Nations) that are known for their pioneering work in co-ordinating nations and ensuring certain privileges for all humans. The data was accumulated through various “international data agencies with the mandate, resources and expertise to collection national data on specific indicators” as mentioned on their website. 
+
+Whilst the data is largely complete and consistent there were lacking for certain countries (e.g. Seychelles, North Korea). They tended to be mainly for the countries who were of low HDI and GDP ranks. For large analysis of what may cause disreprencies between the high and low ranking nations, missing data could result in making it difficult to make substantive conclusions or provide recommendations. 
+
+In general, the data was organised by country, with each row including country specific data and each column being representative of the indicator in reference.
 
 ## Package Preparation
 
