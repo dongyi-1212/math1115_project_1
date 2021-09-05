@@ -1,0 +1,41 @@
+---
+title: "Research question 1"
+author: "Jack Gleeson"
+date: "3 September 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE) 
+library(tidyverse) 
+```
+
+ 
+
+#Research question 
+
+How has global HDI changed by geographical region in recent years (2010-2019) based on gender?   
+
+
+```{r} 
+data <- read.csv("data/d1.csv")
+ggplot(data, aes(fill=Geographic.Region, y=HDI..Male., x= as.factor(Year..1995.2019.)))+ 
+geom_bar(position="dodge", stat="identity")+ 
+xlab("Year 2010-2019") + 
+ylab("HDI male") 
+
+data <- read.csv("data/d1.csv") 
+ggplot(data, aes(fill=Geographic.Region, y=HDI..female., x= as.factor(Year..1995.2019.)))+ 
+geom_bar(position="dodge", stat="identity")+ 
+xlab("Year 2010-2019") + 
+ylab("HDI female") 
+```
+
+The two bar plots derived from this particular research question utilise four variables of Geographic region (as defined by the United Nations Development Programme), Years 2010-2019 and Male/Female Human Development Index(HDI). The goal of this research question is to identify and explain gender based trends as correlated to geographical region in the most recent decade 2010-2019. World data was also used as an average baseline to show the scope of disparity between high-performing and low performing regions. 
+
+Initially, from these 2 plots we can see increases in both male and female HDI in all geographic regions across the last decade, suggesting improvements to overall quality of life. Europe and central Asia shows the most significant year to year increase in both Male and female, while Sub-Saharan Africa shows the least amount of growth. In relation to differences based on gender, it is clearly evident that male HDI is significantly greater than female HDI, even in the higher performing regions of 1) Europe and Central Asia and 2) Latin America and the Caribbean indicating a significant gap in life quality between men and women. It must be noted that although it is a strong indicator, a reliance on HDI for identifying gender disparity can be misleading (Al-Hilani, H., 2012.) 
+
+Al-Hilani, H., 2012. HDI as a measure of human development: A better index than the income approach. Journal of Business and Management, vol. 2, no. 5, pp.24-28.
+
+
+

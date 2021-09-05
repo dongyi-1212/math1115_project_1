@@ -1,13 +1,82 @@
-Draft
-================
+---
+title: "Human Development Index (HDI) - What a good development entails"
+subtitle: "MATH1115 Group 22"
+author:
+- Jack Gleeson
+- Jelly Dongyi Guo 470033070
+- Mayira Noori
+- Yasheita Roy
+date: "University of Sydney | MATH1115 Group 22 | Sept. 2021"
+output:
+  html_document:
+    code_download: true # embed .Rmd file
+    toc: true  # table of contents
+    toc_depth: 3
+    toc_float: true # toc is always visible when scrolled
+    number_sections: false 
+    df_print: paged # format data frame outputs automatically
+    theme: sandstone # theme the doc
+    highlight: tango # theme syntax colouring
+---
 
-## Data preparation
+```{css newstyles, echo=FALSE}
+body {
+  color: black;
+}
+```
 
-``` r
+# Executive Summary
+- The aim of this report is to ...
+- The main discoveries are ...
+
+# Full Report
+
+## Initial Data Analysis (IDA)
+
+Summary (suggesstion):
+
+- The data came from ...
+- The data is/is not valid because ...
+- Possible issues include ...
+- Each row represents ...
+- Each column represents ...
+
+## Package Preparation
+
+```{r packages, message=FALSE, warning=FALSE, results='hide'}
+# Required Packages
 library(tidyverse)
-library(ggplot2)
 library(ggpubr)
 library(readxl)
+```
+
+## Research Question 1
+
+> **How has global HDI changed by geographical region in recent years (2010-2019) based on gender?**
+
+```{r} 
+data <- read.csv("data/d1.csv")
+ggplot(data, aes(fill=Geographic.Region, y=HDI..Male., x= as.factor(Year..1995.2019.)))+ 
+geom_bar(position="dodge", stat="identity")+ 
+xlab("Year 2010-2019") + 
+ylab("HDI male") 
+
+data <- read.csv("data/d1.csv") 
+ggplot(data, aes(fill=Geographic.Region, y=HDI..female., x= as.factor(Year..1995.2019.)))+ 
+geom_bar(position="dodge", stat="identity")+ 
+xlab("Year 2010-2019") + 
+ylab("HDI female") 
+```
+
+The two bar plots derived from this particular research question utilise four variables of Geographic region (as defined by the United Nations Development Programme), Years 2010-2019 and Male/Female Human Development Index(HDI). The goal of this research question is to identify and explain gender based trends as correlated to geographical region in the most recent decade 2010-2019. World data was also used as an average baseline to show the scope of disparity between high-performing and low performing regions. 
+
+Initially, from these 2 plots we can see increases in both male and female HDI in all geographic regions across the last decade, suggesting improvements to overall quality of life. Europe and central Asia shows the most significant year to year increase in both Male and female, while Sub-Saharan Africa shows the least amount of growth. In relation to differences based on gender, it is clearly evident that male HDI is significantly greater than female HDI, even in the higher performing regions of 1) Europe and Central Asia and 2) Latin America and the Caribbean indicating a significant gap in life quality between men and women. It must be noted that although it is a strong indicator, a reliance on HDI for identifying gender disparity can be misleading (Al-Hilani, H., 2012.) 
+
+## Data Prepartion for Research Question 2 and 3
+
+The data defined here will be used in research question 2 and 3:
+
+```{r message=FALSE, warning=FALSE, results='hide'}
 
 dat_path <- "data/data.xlsx"
 
@@ -39,17 +108,14 @@ employment_status %>%
   mutate_if(is.numeric, round, digits=2) -> employment_status
 ```
 
-## Research Questions
+## Research Question 2
 
-> **Question 1: Among all the HDI components, which category has the
-> most strong reflection with the HDI?**
+> **Among all the HDI components, which category has the most strong reflection with the HDI?**
 
-To find the category with the most strong reflection with the HDI index,
-we are looking for a linear relationship between them with the
-distribution of data as tight as possible. In this case, all of the
-categories have a liner model there with HDI:
 
-``` r
+To find the category with the most strong reflection with the HDI index, we are looking for a linear relationship between them with the distribution of data as tight as possible. In this case, all of the categories have a liner model there with HDI:
+
+```{r}
 hdi_and_components %>% 
   select(HDI,LifeExp) %>% 
   drop_na %>%
@@ -147,47 +213,19 @@ hdi_and_components %>%
   geom_blank() -> plot_MeaSchlYrs_rank
   
 plot_index <- ggarrange(plot_LifeExp, plot_ExpSchlYrs, plot_MeaSchlYrs, plot_GNI, nrow = 2, ncol = 2)
-```
-
-    ## `geom_smooth()` using formula 'y ~ x'
-    ## `geom_smooth()` using formula 'y ~ x'
-    ## `geom_smooth()` using formula 'y ~ x'
-    ## `geom_smooth()` using formula 'y ~ x'
-
-``` r
 plot_rank <- ggarrange(plot_LifeExp_rank, plot_ExpSchlYrs_rank, plot_MeaSchlYrs_rank, plot_GNI_rank, nrow = 2, ncol = 2)
 ```
 
-    ## `geom_smooth()` using formula 'y ~ x'
-    ## `geom_smooth()` using formula 'y ~ x'
-    ## `geom_smooth()` using formula 'y ~ x'
-    ## `geom_smooth()` using formula 'y ~ x'
+Now we can peak the distribution and the linear model easily with the scatter plot of both the HDI index and the rank:
 
-Now we can peak the distribution and the linear model easily with the
-scatter plot of both the HDI index and the rank:
-
-``` r
+```{r}
 plot_index
-```
-
-![](project_1_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
-
-``` r
 plot_rank
 ```
 
-![](project_1_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
+By observing the linear model, especially correspondingly with both the rank and index in a different angle, Expected School Years has both tighter data distribution and less distance between maximum and minimum value, especially in range from 0.6 to 0.8 in HDI value and from 50 to 125 in HDI rank. GNI does have a more tight model but it has so many extremely high values and it makes it hard to describe or predict the HDI performance simply because of it.This can be proven more by looking into the standard derivation:
 
-By observing the linear model, especially correspondingly with both the
-rank and index in a different angle, Expected School Years has both
-tighter data distribution and less distance between maximum and minimum
-value, especially in range from 0.6 to 0.8 in HDI value and from 50 to
-125 in HDI rank. GNI does have a more tight model but it has so many
-extremely high values and it makes it hard to describe or predict the
-HDI performance simply because of it.This can be proven more by looking
-into the standard derivation:
-
-``` r
+```{r}
 hdi_and_components %>% 
   select(LifeExp, ExpSchlYrs, MeaSchlYrs, GNIpcap) %>% 
   pivot_longer(everything()) %>% 
@@ -195,37 +233,23 @@ hdi_and_components %>%
   summarise(sd = round(sd(value,na.rm = TRUE),digits = 2))
 ```
 
-    ## # A tibble: 4 x 2
-    ##   name          sd
-    ##   <chr>      <dbl>
-    ## 1 ExpSchlYrs  2.94
-    ## 2 GNIpcap    21.3 
-    ## 3 LifeExp     7.42
-    ## 4 MeaSchlYrs  3.09
+Thus, Expected School Years has the most strong relationship with the HDI.
 
-Thus, Expected School Years has the most strong relationship with the
-HDI.
+## Research Question 3
 
-> **Question 2: How does the employment status of each country related
-> to their HDI rank?**
+> **How does the employment status of each country related to their HDI rank?**
+In order to analyse how the employment situation of each country can relate to their HDI rank, we can use the `plot()` function to glimpse an overview:
 
-In order to analyse how the employment situation of each country can
-relate to their HDI rank, we can use the `plot()` function to glimpse an
-overview:
-
-``` r
+```{r}
 employment_status %>% 
   keep(is.numeric) %>% 
   sample_frac(0.1) %>% 
   plot()
 ```
 
-![](project_1_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+It seems like there are interesting behaviors happening on `EmpAgri` and `EmpServ`, Let's zoom in:
 
-It seems like there are interesting behaviors happening on `EmpAgri` and
-`EmpServ`, Let’s zoom in:
-
-``` r
+```{r}
 employment_status %>% 
   select(Rank,EmpAgri) %>% 
   drop_na %>%
@@ -253,20 +277,11 @@ employment_status %>%
 ggarrange(plot_EmpAgri, plot_EmpServ, nrow = 2, ncol = 1)
 ```
 
-    ## `geom_smooth()` using formula 'y ~ x'
-    ## `geom_smooth()` using formula 'y ~ x'
+It is quite clear and direct: The country ranked higher in the HDI will engage a obviously high rate of employment in services and low rate of employment in agriculture, stepping into the third industry is an essential key to a better development.
 
-![](project_1_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+But how about the overall employment and unemployment, how would they affect the HDI?
 
-It is quite clear and direct: The country ranked higher in the HDI will
-engage a obviously high rate of employment in services and low rate of
-employment in agriculture, stepping into the third industry is an
-essential key to a better development.
-
-But how about the overall employment and unemployment, how would they
-affect the HDI?
-
-``` r
+```{r}
 employment_status %>% 
   select(Rank,EmpRatio) %>% 
   drop_na %>%
@@ -294,15 +309,17 @@ employment_status %>%
 ggarrange(plot_EmpRation, plot_EmpUEmpTotal, nrow = 2, ncol = 1)
 ```
 
-    ## `geom_smooth()` using formula 'y ~ x'
-    ## `geom_smooth()` using formula 'y ~ x'
+Based on how horizontal the linear line is, the conclusion is despite higher HDI-ranked countries seems to like have a higher employment ration and lower unemployment, there is still no connection that having more people employed or unemployed will affect the HDI ranking. This also applies to relating variables of these 2 rations like Lab our Force Participation Rate and Youth unemployment (or school), which can be easily observed in the `plot()` before.
 
-![](project_1_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+## Research Question 
 
-Based on how horizontal the linear line is, the conclusion is despite
-higher HDI-ranked countries seems to like have a higher employment
-ration and lower unemployment, there is still no connection that having
-more people employed or unemployed will affect the HDI ranking. This
-also applies to relating variables of these 2 rations like Lab our Force
-Participation Rate and Youth unemployment (or school), which can be
-easily observed in the `plot()` before.
+> **I am a question**
+
+## Research Question 5
+
+> **I am a question**
+
+# References
+
+- Al-Hilani, H., 2012. HDI as a measure of human development: A better index than the income approach. Journal of Business and Management, vol. 2, no. 5, pp.24-28.
+
