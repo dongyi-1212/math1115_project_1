@@ -238,6 +238,7 @@ Thus, Expected School Years has the most strong relationship with the HDI.
 ## Research Question 3
 
 > **How does the employment status of each country related to their HDI rank?**
+
 In order to analyse how the employment situation of each country can relate to their HDI rank, we can use the `plot()` function to glimpse an overview:
 
 ```{r}
@@ -311,7 +312,7 @@ ggarrange(plot_EmpRation, plot_EmpUEmpTotal, nrow = 2, ncol = 1)
 
 Based on how horizontal the linear line is, the conclusion is despite higher HDI-ranked countries seems to like have a higher employment ration and lower unemployment, there is still no connection that having more people employed or unemployed will affect the HDI ranking. This also applies to relating variables of these 2 rations like Lab our Force Participation Rate and Youth unemployment (or school), which can be easily observed in the `plot()` before.
 
-## Research Question 
+## Research Question 4
 
 > **I am a question**
 
