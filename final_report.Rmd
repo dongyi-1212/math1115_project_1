@@ -26,8 +26,8 @@ body {
 ```
 
 # Executive Summary
-- The aim of this report is to ...
-- The main discoveries are ...
+
+This report aims to identify key data trends as related to the Human Development Index (HDI), a composite index used to measure human wellbeing around the globe. Focus was upon two main areas (Gender and Employment) and how they correlated to HDI. The main findings of project were that high HDI is strongly correlated to high employment and subsequently lower unemployment while affirming that male HDI is greater than female HDI in all geographic regions. Interestingly the participation rate of genders in the workplace do not appear to be a good indicator of overall HDI value.
 
 # Full Report
 
