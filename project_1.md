@@ -176,8 +176,9 @@ plot_index
 plot_rank
 ```
 
-![](project_1_files/figure-gfm/unnamed-chunk-3-2.png)<!-- --> By
-observing the linear model, especially correspondingly with both the
+![](project_1_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
+
+By observing the linear model, especially correspondingly with both the
 rank and index in a different angle, Expected School Years has both
 tighter data distribution and less distance between maximum and minimum
 value, especially in range from 0.6 to 0.8 in HDI value and from 50 to
@@ -219,8 +220,9 @@ employment_status %>%
   plot()
 ```
 
-![](project_1_files/figure-gfm/unnamed-chunk-5-1.png)<!-- --> It seems
-like there are interesting behaviors happening on `EmpAgri` and
+![](project_1_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+It seems like there are interesting behaviors happening on `EmpAgri` and
 `EmpServ`, Let’s zoom in:
 
 ``` r
@@ -254,9 +256,10 @@ ggarrange(plot_EmpAgri, plot_EmpServ, nrow = 2, ncol = 1)
     ## `geom_smooth()` using formula 'y ~ x'
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](project_1_files/figure-gfm/unnamed-chunk-6-1.png)<!-- --> It is
-quite clear and direct: The country ranked higher in the HDI will engage
-a obviously high rate of employment in services and low rate of
+![](project_1_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+It is quite clear and direct: The country ranked higher in the HDI will
+engage a obviously high rate of employment in services and low rate of
 employment in agriculture, stepping into the third industry is an
 essential key to a better development.
 
@@ -294,11 +297,12 @@ ggarrange(plot_EmpRation, plot_EmpUEmpTotal, nrow = 2, ncol = 1)
     ## `geom_smooth()` using formula 'y ~ x'
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](project_1_files/figure-gfm/unnamed-chunk-7-1.png)<!-- --> Based on
-how horizontal the linear line is, the conclusion is despite higher
-HDI-ranked countries seems to like have a higher employment ration and
-lower unemployment, there is still no connection that having more people
-employed or unemployed will affect the HDI ranking. This also applies to
-relating variables of these 2 rations like Lab our Force Participation
-Rate and Youth unemployment (or school), which can be easily observed in
-the `plot()` before.
+![](project_1_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+Based on how horizontal the linear line is, the conclusion is despite
+higher HDI-ranked countries seems to like have a higher employment
+ration and lower unemployment, there is still no connection that having
+more people employed or unemployed will affect the HDI ranking. This
+also applies to relating variables of these 2 rations like Lab our Force
+Participation Rate and Youth unemployment (or school), which can be
+easily observed in the `plot()` before.
