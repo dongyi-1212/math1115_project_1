@@ -1,11 +1,11 @@
 ---
-title: "Human Development Index (HDI) - What a good development entails"
-subtitle: "MATH1115 Group 22"
+title: "Human Development Index (HDI) Analysis "
+subtitle: "- What a good development entails"
 author:
-- Jack Gleeson
+- Jack Gleeson 480382724
 - Jelly Dongyi Guo 470033070
-- Mayira Noori
-- Yasheita Roy
+- Mayira Noori 500473922
+- Yasheita Roy 480358833
 date: "University of Sydney | MATH1115 Group 22 | Sept. 2021"
 output:
   html_document:
@@ -48,6 +48,9 @@ Summary (suggesstion):
 library(tidyverse)
 library(ggpubr)
 library(readxl)
+library(plotly)
+library(gapminder)
+library(readr)
 ```
 
 ## Research Question 1
@@ -314,7 +317,45 @@ Based on how horizontal the linear line is, the conclusion is despite higher HDI
 
 ## Research Question 4
 
-> **I am a question**
+> **Is there a difference in 'Workforce Participation Rate (WPR)' between males and females in the four different HDI catgeories?**
+
+The UN has cartgeorised the HDI value of countries into 4 broad classifications that provide an indication of the countries development as shown below:
+
+- Very High Human Development = HDI Value > 0.898
+- High Human Development = HDI Value > 0.753
+- Medium Human Development = HDI Value > 0.631
+- Low Development = HDI Value > 0.513
+
+Through the use of an interactive scatter plot we were able to visualise the WPR (%) of males and females in relation the HDI value of the country, which brought to forefront clear trends. 
+
+There are clear seperations between the WPR of the genders and the HDI class of the country namely one being, female participation rate on average remains lower than male participation rates, despite the HDI category. This may be caused by remenants of societal values that did not encourage or rather presented barriers of entry for females into the workforce. Futhermore, it is often expected for females to also be primary caregivers which may reduce the tendancy for WFP across the board.
+
+Very High HDI countries tend to have a WPR with a smaller distribution than that of Low HDI countries in both genders, and is clearly depicted as the size of the violins elongate as HDI value decreases. Higher HDI countries tend to be more bulbous indicating a certain level of
+
+In summary it is clearly evident that WPR have unique characteristics for each HDI category that are evident across genders. Hence, there is no real difference.
+
+```{r}
+LF_data <- read_csv("data/Labour Force Data.csv")
+head(LF_data)
+```
+
+```{r}
+mv <- LF_data %>%
+  ggplot( aes(`HDI Value`, `Male Labour Force Particiaption Rate`, fill= `HDI Category`)) +
+  geom_violin() +
+  theme_bw()
+
+mv
+```
+
+```{r}
+fv <- LF_data %>%
+  ggplot( aes(`HDI Value`, `Female Labour Force Participation Rate`, fill= `HDI Category`)) +
+  geom_violin() +
+  theme_bw()
+
+fv
+```
 
 ## Research Question 5
 
