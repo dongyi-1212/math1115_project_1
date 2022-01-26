@@ -1,0 +1,130 @@
+---
+title: "Research Question 1"
+output: rmarkdown::github_document
+---
+```{css newstyles, echo=FALSE}
+body {
+  color: black;
+}
+```
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data Preparation
+```{r results='hide', error=FALSE, warning=FALSE, message=FALSE}
+# Required Packages
+library(ggplot2)
+library(ggpubr)
+library(readxl)
+library(tidyverse)
+
+# Path to data file
+data_path <- "data/data.xlsx"
+
+# Table 1 - HDI and its components
+hdi_and_components <- read_excel(data_path, sheet = "Table 1")[-c(75,129,167),-c(4,6,8,10,12,13,14,15)][8:196,]
+colnames(hdi_and_components) <- c("Rank","Country","HDI","LifeExp","Exp_Schl_Yrs","Mean_Schl_Yrs","GNI_pcap")
+hdi_and_components %>% 
+  mutate(HDI = as.numeric(HDI)) %>% 
+  mutate(LifeExp = as.numeric(LifeExp)) %>% 
+  mutate(Exp_Schl_Yrs = as.numeric(Exp_Schl_Yrs)) %>% 
+  mutate(Mean_Schl_Yrs = as.numeric(Mean_Schl_Yrs)) %>% 
+  mutate(GNI_pcap = as.numeric(GNI_pcap)) %>% 
+  mutate(GNI_pcap = GNI_pcap /1000) %>% 
+  mutate(Rank = as.numeric(Rank)) %>%
+  mutate(across(is.numeric, ~ round(., 2))) -> hdi_and_components
+
+# Table 11 - Work and Employment
+work_and_employment <- read_excel(data_path, sheet = "Table 11")[-c(75,129,167),-c(4,6,8,10,12,14,16,18,20,22,24,26,28)][9:197,0:9]
+colnames(work_and_employment) <- c("Rank","Country","EmpRatio","LabrPartiRatio","EmpAgri","EmpServ","UnEmp","UnEmpYouth","UnEmpYouthSchl")
+work_and_employment %>% 
+  mutate(Rank = as.numeric(Rank)) %>%
+  mutate(HDI = hdi_and_components$HDI) %>% 
+  mutate(EmpRatio = as.numeric(EmpRatio)) %>%
+  mutate(LabrPartiRatio = as.numeric(LabrPartiRatio)) %>%
+  mutate(EmpAgri = as.numeric(EmpAgri)) %>%
+  mutate(EmpServ = as.numeric(EmpServ)) %>%
+  mutate(UnEmp = as.numeric(UnEmp)) %>%
+  mutate(UnEmpYouth = as.numeric(UnEmpYouth)) %>%
+  mutate(UnEmpYouthSchl = as.numeric(UnEmpYouthSchl)) %>%
+  mutate(across(is.numeric, ~ round(., 2))) -> work_and_employment
+```
+
+<!-- Peak the data here-->
+```{r include=TRUE}
+glimpse(work_and_employment)
+work_and_employment %>% 
+  sample_frac(0.1) %>% # sample 10% of the data to plot
+  plot()
+```
+
+# Research Questions
+
+>  **Research Question 1: Among all the categories that contributes to HDI, Which one has the most direct reflection on the HDI in 2019?**
+
+To find the category which strongly indicates the HDI, a category that has most tight linear relationship with HDI will be preferred since it's level of performance can literally reflect on how the HDI will behave. In this case, all of them can be found a linear model with the HDI:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+hdi_and_components %>% 
+  select(HDI, LifeExp) %>% 
+  drop_na() %>% 
+  ggplot(aes(HDI, LifeExp)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  xlab("HDI Index") +
+  ylab("Life expectancy at birth (year)") +
+  ggtitle("HDI and Life expectancy") +
+  theme_classic() +
+  geom_blank() -> plot_lifeExp
+
+hdi_and_components %>% 
+  select(HDI, Exp_Schl_Yrs) %>% 
+  drop_na() %>% 
+  ggplot(aes(HDI, Exp_Schl_Yrs)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  xlab("HDI Index") +
+  ylab("Expected School Years (year)") +
+  ggtitle("HDI and Expected School Years") +
+  theme_classic() +
+  geom_blank() -> plot_exp_schl_yrs
+
+hdi_and_components %>% 
+  select(HDI, Mean_Schl_Yrs) %>% 
+  drop_na() %>% 
+  ggplot(aes(HDI, Mean_Schl_Yrs)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  xlab("HDI Index") +
+  ylab("Mean School Years (year)") +
+  ggtitle("HDI and Mean School Years") +
+  theme_classic() +
+  geom_blank() -> plot_mean_schl_yrs
+
+hdi_and_components %>% 
+  select(HDI, GNI_pcap) %>% 
+  drop_na() %>% 
+  ggplot(aes(HDI, GNI_pcap)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  xlab("HDI Index") +
+  ylab("GNI per capita ($1000)") +
+  ggtitle("HDI and GNI per capita") +
+  theme_classic() +
+  geom_blank() -> plot_GNIpcap
+
+ggarrange(plot_lifeExp, plot_exp_schl_yrs, plot_mean_schl_yrs,plot_GNIpcap, ncol = 2, nrow = 2)
+```
+
+It is possible to observe that in the 4 given categories of determining a HDI, Expected School Years has a much tight distribution around the linear model indicator, especially in range from 0.6 to 0.8 of HDI index. This can be also confirmed by checking on the standard derivation for each category:
+
+```{r}
+hdi_and_components %>% 
+  select(LifeExp, Exp_Schl_Yrs, Mean_Schl_Yrs, GNI_pcap) %>% 
+  pivot_longer(c(LifeExp, Exp_Schl_Yrs, Mean_Schl_Yrs, GNI_pcap)) %>% 
+  group_by(name) %>% 
+  summarise(sd = sd(value,na.rm=TRUE)) 
+```
+
+Thus, more Expected School Years for each country can proficiently indicate a higher HDI index value the most, followed by the Mean School Years, which combined with Expected School Years and are used to calculate an education index.
