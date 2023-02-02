@@ -2,4 +2,4 @@
 
 ## Members
 
-* Jelly Dongyi Guo 470033070
+* Dongyi Guo 470033070
